@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial;
+  background: #fafafa;
+}
+.masonry-grid {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+}
+.masonry-column {
+  background-clip: padding-box;
+}
