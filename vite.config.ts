@@ -5,6 +5,7 @@ export default defineConfig({
   base: "/curator/",
   plugins: [react()],
   build: {
-    outDir: "docs",
+    outDir: "docs", // ← change this
+    emptyOutDir: true,
   },
 });
