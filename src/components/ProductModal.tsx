@@ -83,7 +83,7 @@ export default function ProductModal({
   );
 
   return (
-    <div className={styles.overlay} onClick={close}>
+    <div className={styles.overlay} onClick={handleClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <img src={product.image} className={styles.image} />
         <div className={styles.title}>
