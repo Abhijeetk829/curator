@@ -1,7 +1,4 @@
-export interface Tab {
-  id: string;
-  title: string;
-}
+import { BadgeType } from "./BadgeType";
 
 export interface Product {
   id: string;
@@ -14,7 +11,7 @@ export interface Product {
   amazonLink: string;
   pinterestPin?: string;
   rating?: number;
-  badge?: string;
-  isBestseller?: boolean;
+  badge?: BadgeType;
   userReviews?: number;
+  tags?: string[];
 }

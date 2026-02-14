@@ -1,4 +1,4 @@
-import data from "../data/products.json";
+import data from "../data/tabs.json";
 import styles from "./Navbar.module.scss";
 
 export default function Navbar({
