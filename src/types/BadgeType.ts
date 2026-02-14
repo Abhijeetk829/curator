@@ -1,5 +1,5 @@
 export type BadgeType =
-  | "Bestseller"
+  | "BestSeller"
   | "LimitedTimeDeal"
   | "Trending"
   | "AmazonChoice";

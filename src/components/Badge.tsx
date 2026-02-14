@@ -2,9 +2,10 @@ import { BadgeType } from "../types";
 import styles from "./Badge.module.scss";
 
 export default function Badge({ badge }: { badge: BadgeType | undefined }) {
+  console.log(badge);
   let type = "";
   if (badge === "Trending") type = "trending";
-  if (badge === "Bestseller") type = "bestseller";
+  if (badge === "BestSeller") type = "bestseller";
   if (badge === "LimitedTimeDeal") type = "limitedTimeDeal";
   if (badge === "AmazonChoice") type = "amazonChoice";
 
