@@ -1,4 +1,4 @@
-export function groupTags(tags: string[]) {
+export const groupTags = (tags: string[]) => {
   const groups: any = {
     recipient: [],
     type: [],
@@ -62,7 +62,7 @@ export function groupTags(tags: string[]) {
   });
 
   return groups;
-}
+};
 
 groupTags.displayName = "groupTags";
 

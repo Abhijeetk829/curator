@@ -1,0 +1,38 @@
+import ContentCopy from "@mui/icons-material/ContentCopy";
+import { useState } from "react";
+import { CopyToClipboard } from "../utils";
+import styles from "./CopyLink.module.scss";
+
+interface CopyLinkProps {
+  productId: string;
+  productName: string;
+}
+
+export function CopyLink({ productId, productName }: CopyLinkProps) {
+  const [copied, setCopied] = useState(false);
+  const productUrl = `${location.href}product/${productId}`;
+  //   const text = `🎁 Found this cool gift on OnlyPresents:\n${productName}\n${productUrl}`;
+
+  const handleLinkCopy = () => {
+    CopyToClipboard(productUrl, () => {
+      setCopied(true);
+    });
+    setTimeout(() => {
+      setCopied(false);
+    }, 2500);
+  };
+
+  return (
+    <button
+      className={
+        copied ? `${styles.copyLink} ${styles.copiedLink}` : styles.copyLink
+      }
+      onClick={handleLinkCopy}
+    >
+      <ContentCopy />
+      <span className={styles.copyText}>
+        {copied ? "Link Copied" : "Copy Link"}
+      </span>
+    </button>
+  );
+}

@@ -120,6 +120,7 @@
 .imageContainer {
   max-height: 420px;
   display: flex;
+  position: relative;
 }
 
 @media (max-width: 435px) {

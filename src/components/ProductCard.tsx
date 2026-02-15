@@ -13,7 +13,6 @@ export default function ProductCard({
     <div className={styles.card} onClick={onClick}>
       <img className={styles.image} src={product.image} />
       <div className={styles.info}>
-        {product.id}
         <div className={styles.name}>{product.name}</div>
         <div className={styles.section}>
           <div className={styles.price}>{`\u20b9 ${product.price}`}</div>
