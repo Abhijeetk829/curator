@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postbuild": "shx cp docs/index.html docs/404.html"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -24,6 +25,7 @@
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
     "sass": "^1.97.3",
+    "shx": "^0.4.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.0"
   }
