@@ -32,7 +32,7 @@ export default function ProductModal({
         </button>
         <button
           className={styles.pinterest}
-          onClick={() => window.open(product.pinterestPin, "_blank")}
+          onClick={() => window.open(product.pinterestLink, "_blank")}
         >
           Pinterest Pin
         </button>
@@ -46,7 +46,9 @@ export default function ProductModal({
   return (
     <div className={styles.overlay} onClick={handleClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <img src={product.image} className={styles.image} />
+        <div className={styles.imageContainer}>
+          <img src={product.image} className={styles.image} />
+        </div>
         <div className={styles.content}>
           <div className={styles.title}>{product.name}</div>
 

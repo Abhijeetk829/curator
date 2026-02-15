@@ -1,4 +1,6 @@
-import { FaStar, FaStarHalf } from "react-icons/fa";
+import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
+import MuiRating from "@mui/material/Rating";
 import { formatNumber } from "../utils";
 import styles from "./Rating.module.scss";
 
@@ -8,33 +10,30 @@ interface RatingProps {
 }
 
 function Rating({ rating, userReviews }: RatingProps) {
-  const stars = [];
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating % 1 !== 0;
-
-  for (let i = 0; i < 5; i++) {
-    if (i < fullStars) {
-      stars.push(<FaStar key={i} color="#ffc107" />);
-    } else if (i === fullStars && hasHalfStar) {
-      stars.push(<FaStarHalf key={i} color="#ffc107" />);
-    } else {
-      stars.push(<FaStar key={i} color="#e0e0e0" />);
-    }
-  }
+  if (rating === undefined) return null;
 
   return (
-    rating !== undefined && (
-      <div className={styles.rating}>
-        <div className={styles.ratingValue}>{rating.toFixed(1)}</div>
-        <div className={styles.stars}>{stars}</div>
-        <div className={styles.userReviews}>
-          ({formatNumber(userReviews)} user reviews)
-        </div>
+    <div className={styles.rating}>
+      {/* numeric rating */}
+      <div className={styles.ratingValue}>{rating.toFixed(1)}</div>
+
+      {/* stars */}
+      <MuiRating
+        value={rating}
+        precision={0.1}
+        readOnly
+        icon={<StarRoundedIcon fontSize="inherit" />}
+        emptyIcon={<StarBorderRoundedIcon fontSize="inherit" />}
+        className={styles.stars}
+      />
+
+      {/* reviews */}
+      <div className={styles.userReviews}>
+        ({formatNumber(userReviews)} reviews)
       </div>
-    )
+    </div>
   );
 }
 
 Rating.displayName = "Rating";
-
 export default Rating;

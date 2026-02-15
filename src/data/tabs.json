@@ -2,24 +2,28 @@
   "defaultTab": "valentine",
   "tabs": [
     {
+      "id": "",
+      "title": "All"
+    },
+    {
       "id": "valentine",
-      "title": "Valentine Gift Ideas"
+      "title": "Valentine"
     },
     {
       "id": "girlfriend",
-      "title": "Gifts for Girlfriend"
+      "title": "For Her"
     },
     {
       "id": "boyfriend",
-      "title": "Gifts for Boyfriend"
+      "title": "For Him"
     },
     {
       "id": "under499",
-      "title": "Amazon Finds Under \u20b9499"
+      "title": "Under \u20b9499"
     },
     {
       "id": "couple",
-      "title": "Cute Couple Gifts"
+      "title": "Couple"
     }
   ]
 }
