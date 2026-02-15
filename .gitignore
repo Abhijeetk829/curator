@@ -4,3 +4,6 @@ build
 *.local
 .env
 .env.local
+generateIdForData.js
+dist
+docs

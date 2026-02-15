@@ -3,7 +3,7 @@ import Masonry from "react-masonry-css";
 import { useParams } from "react-router-dom";
 import { FilterTags, Navbar, ProductCard, ProductModal } from "../components";
 import { data } from "../data";
-import { Product } from "../types";
+import { FilterType, Product } from "../types";
 import { containsTag, shuffleArray } from "../utils";
 import styles from "./Home.module.scss";
 
@@ -12,7 +12,7 @@ const globalData = shuffleArray(data as Product[]);
 export function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
   // Extracting id from URL parameters
-  const { id: productId } = useParams();
+  const { value: filterValue, type: filterType } = useParams();
 
   // State to manage active tab, product data, and selected product for modal
   const [activeTab, setActiveTab] = useState("");
@@ -24,15 +24,15 @@ export function Home() {
 
   // Effect to handle URL parameters and set the active tab and selected product accordingly
   useEffect(() => {
-    if (productId) {
-      const product = globalData.find((p: any) => p.id === productId);
+    if (filterType === FilterType.Product && filterValue) {
+      const product = globalData.find((p: any) => p.id === filterValue);
       if (product) {
         setActiveTab(product.tab);
         setActiveTags([]);
         setSelectedProduct(product);
       }
     }
-  }, [productId]);
+  }, [filterValue]);
 
   useEffect(() => {
     let list = [...globalData];

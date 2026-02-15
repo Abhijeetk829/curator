@@ -1,13 +1,13 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./pages";
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<Home />} />
+        <Route path="/:type/:value" element={<Home />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

@@ -1,5 +1,6 @@
 import { Product } from "../types";
 import Badge from "./Badge";
+import { CopyLink } from "./CopyLink";
 import styles from "./ProductModal.module.scss";
 import Rating from "./Rating";
 
@@ -48,6 +49,7 @@ export default function ProductModal({
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.imageContainer}>
           <img src={product.image} className={styles.image} />
+          <CopyLink productId={product.id} productName={product.name} />
         </div>
         <div className={styles.content}>
           <div className={styles.title}>{product.name}</div>
