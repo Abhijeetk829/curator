@@ -5,11 +5,10 @@ export interface Product {
   tab: string;
   name: string;
   description: string;
-  price: string;
+  price: number;
   image: string;
-  imageSize: "small" | "medium" | "large";
   amazonLink: string;
-  pinterestPin?: string;
+  pinterestLink?: string;
   rating?: number;
   badge?: BadgeType;
   userReviews?: number;

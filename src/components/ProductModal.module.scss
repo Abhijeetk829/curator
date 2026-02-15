@@ -11,6 +11,7 @@
     rgba(0, 0, 0, 0.75)
   );
   backdrop-filter: blur(1px);
+  z-index: 30;
 }
 .modal {
   width: 85%;
@@ -36,7 +37,7 @@
 .title {
   font-size: 20px;
   font-weight: 700;
-  margin: 10px 0 0 0;
+  margin: 10px 0 5px 0;
 }
 
 .price {
@@ -114,6 +115,11 @@
   &:hover {
     background: linear-gradient(135deg, #fff0f3, #ffe4ec);
   }
+}
+
+.imageContainer {
+  max-height: 420px;
+  display: flex;
 }
 
 @media (max-width: 435px) {

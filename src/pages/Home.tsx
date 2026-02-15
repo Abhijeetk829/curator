@@ -1,78 +1,115 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Masonry from "react-masonry-css";
 import { useParams } from "react-router-dom";
-import { Navbar, ProductCard, ProductModal } from "../components";
-import {
-  boyfriend,
-  couple,
-  girlfriend,
-  tabs,
-  under499,
-  valentine,
-} from "../data";
+import { FilterTags, Navbar, ProductCard, ProductModal } from "../components";
+import { data } from "../data";
 import { Product } from "../types";
-import { shuffleArray } from "../utils";
+import { containsTag, shuffleArray } from "../utils";
 import styles from "./Home.module.scss";
 
-export function Home() {
-  // Shuffled data to ensure different order on each load
-  const globalData: Record<string, Product[]> = {
-    under499: shuffleArray(under499 as Product[]),
-    valentine: shuffleArray(valentine as Product[]),
-    girlfriend: shuffleArray(girlfriend as Product[]),
-    boyfriend: shuffleArray(boyfriend as Product[]),
-    couple: shuffleArray(couple as Product[]),
-  };
+const globalData = shuffleArray(data as Product[]);
 
-  // Extracting both category and id from URL parameters
-  const { category: productCategory, id: productId } = useParams();
+export function Home() {
+  const homeRef = useRef<HTMLDivElement>(null);
+  // Extracting id from URL parameters
+  const { id: productId } = useParams();
 
   // State to manage active tab, product data, and selected product for modal
-  const [activeTab, setActiveTab] = useState(tabs.defaultTab);
-  const [data, setData] = useState<Product[]>(valentine as Product[]);
-  const [selected, setSelected] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState("");
+  const [activeTags, setActiveTags] = useState([] as string[]);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [filteredProducts, setFilteredProducts] =
+    useState<Product[]>(globalData);
+  const [searchText, setSearchText] = useState("");
 
   // Effect to handle URL parameters and set the active tab and selected product accordingly
   useEffect(() => {
-    if (productId && productCategory) {
-      setData(globalData[productCategory] || []);
-      const product = globalData[productCategory]?.find(
-        (p: any) => p.id === productId,
-      );
+    if (productId) {
+      const product = globalData.find((p: any) => p.id === productId);
       if (product) {
         setActiveTab(product.tab);
-        setSelected(product);
+        setActiveTags([]);
+        setSelectedProduct(product);
       }
     }
   }, [productId]);
 
-  // Effect to update product data when active tab changes
   useEffect(() => {
+    let list = [...globalData];
+
+    // TAB filter
     if (activeTab) {
-      setData(globalData[activeTab] || []);
+      list = list.filter((p) => p.tab === activeTab);
     }
-  }, [activeTab]);
+
+    // SEARCH filter
+    if (searchText.trim()) {
+      const s = searchText.toLowerCase();
+      list = list.filter((p) =>
+        `${p.name} ${p.description} ${p.tags?.join(" ")}`
+          .toLowerCase()
+          .includes(s),
+      );
+    }
+
+    // TAG filter
+    if (activeTags.length > 0) {
+      list = list.filter((p) => containsTag(activeTags, p));
+    }
+
+    setFilteredProducts(list);
+  }, [activeTab, activeTags, searchText]);
+
+  const tabHandler = (tab: string) => {
+    if (activeTab === tab) {
+      setActiveTab("");
+    } else {
+      setActiveTab(tab);
+      setActiveTags([]);
+    }
+  };
 
   return (
-    <div className={styles.home}>
-      <Navbar active={activeTab} setActive={setActiveTab} />
+    <div ref={homeRef} className={styles.home}>
+      <Navbar
+        scrollContainerRef={homeRef}
+        activeTab={activeTab}
+        setActiveTab={tabHandler}
+        onSearch={setSearchText}
+      />
       <Masonry
         breakpointCols={{ default: 5, 1100: 3, 700: 2 }}
-        className="masonry-grid"
+        className={`masonry-grid ${styles.grid}`}
         columnClassName="masonry-column"
       >
-        {data.map(
+        {filteredProducts.map(
           (p: Product) =>
             p.id && (
               <ProductCard
                 key={p.id}
                 product={p}
-                onClick={() => setSelected(p)}
+                onClick={() => setSelectedProduct(p)}
               />
             ),
         )}
       </Masonry>
-      <ProductModal product={selected} close={() => setSelected(null)} />
+      <ProductModal
+        product={selectedProduct}
+        close={() => setSelectedProduct(null)}
+      />
+      <FilterTags
+        filteredData={
+          activeTab ? globalData.filter((p) => p.tab === activeTab) : globalData
+        }
+        activeTags={activeTags}
+        setActiveTags={(tag: string) =>
+          setActiveTags((prev) =>
+            prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+          )
+        }
+        clearAllTags={() => setActiveTags([])}
+        scrollContainerRef={homeRef}
+      />
     </div>
   );
 }

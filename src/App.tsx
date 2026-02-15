@@ -6,7 +6,7 @@ export default function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/product/:category/:id" element={<Home />} />
+        <Route path="/product/:id" element={<Home />} />
       </Routes>
     </HashRouter>
   );
