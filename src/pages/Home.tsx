@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
 import Masonry from "react-masonry-css";
 import { useParams } from "react-router-dom";
-import { FilterTags, Navbar, ProductCard, ProductModal } from "../components";
+import {
+  FilterTags,
+  NavbarDesktop,
+  NavbarMobile,
+  ProductCard,
+  ProductModal,
+} from "../components";
 import { data } from "../data";
 import { FilterType, Product } from "../types";
 import { containsTag, shuffleArray } from "../utils";
@@ -71,15 +78,20 @@ export function Home() {
 
   return (
     <div ref={homeRef} className={styles.home}>
-      <Navbar
-        scrollContainerRef={homeRef}
-        activeTab={activeTab}
-        setActiveTab={tabHandler}
-        onSearch={setSearchText}
-      />
+      {isMobile ? (
+        <NavbarMobile activeTab={activeTab} setActiveTab={tabHandler} />
+      ) : (
+        <NavbarDesktop
+          scrollContainerRef={homeRef}
+          activeTab={activeTab}
+          setActiveTab={tabHandler}
+          onSearch={setSearchText}
+        />
+      )}
+
       <Masonry
         breakpointCols={{ default: 5, 1100: 3, 700: 2 }}
-        className={`masonry-grid ${styles.grid}`}
+        className={`masonry-grid ${isMobile ? styles.gridMobile : ""}`}
         columnClassName="masonry-column"
       >
         {filteredProducts.map(
