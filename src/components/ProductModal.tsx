@@ -3,6 +3,7 @@ import Badge from "./Badge";
 import { CopyLink } from "./CopyLink";
 import styles from "./ProductModal.module.scss";
 import Rating from "./Rating";
+import { BuyOnAmazon, ShareOnWhatsapp } from "./buttons";
 
 interface ProductModalProps {
   product: Product | null;
@@ -25,18 +26,12 @@ export default function ProductModal({
   const buttonsContainer = (
     <>
       <div className={styles.buttons}>
-        <button
+        <BuyOnAmazon amazonUrl={product.amazonLink} className={styles.buy} />
+        <ShareOnWhatsapp
           className={styles.buy}
-          onClick={() => window.open(product.amazonLink, "_blank")}
-        >
-          Buy on Amazon
-        </button>
-        <button
-          className={styles.pinterest}
-          onClick={() => window.open(product.pinterestLink, "_blank")}
-        >
-          Pinterest Pin
-        </button>
+          productId={product.id}
+          productName={product.name}
+        />
       </div>
       <button className={styles.close} onClick={handleClose}>
         Close
@@ -49,7 +44,7 @@ export default function ProductModal({
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.imageContainer}>
           <img src={product.image} className={styles.image} />
-          <CopyLink productId={product.id} productName={product.name} />
+          <CopyLink productId={product.id} />
         </div>
         <div className={styles.content}>
           <div className={styles.title}>{product.name}</div>

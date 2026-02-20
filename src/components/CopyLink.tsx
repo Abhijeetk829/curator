@@ -5,10 +5,9 @@ import styles from "./CopyLink.module.scss";
 
 interface CopyLinkProps {
   productId: string;
-  productName: string;
 }
 
-export function CopyLink({ productId, productName }: CopyLinkProps) {
+export function CopyLink({ productId }: CopyLinkProps) {
   const [copied, setCopied] = useState(false);
   const productUrl = `${location.href}product/${productId}`;
   //   const text = `🎁 Found this cool gift on OnlyPresents:\n${productName}\n${productUrl}`;

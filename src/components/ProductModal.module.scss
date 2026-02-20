@@ -56,9 +56,8 @@
 }
 
 .buy,
-.pinterest,
 .close {
-  width: 45%;
+  width: auto;
   margin-top: 14px;
   color: white;
   border: none;
@@ -72,7 +71,7 @@
     cursor: pointer;
   }
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .close {
@@ -96,15 +95,6 @@
 .buttons {
   gap: 15px;
   justify-content: space-between;
-}
-
-.pinterest {
-  background: transparent;
-  border: 2px solid #ff4d6d;
-  color: #ff4d6d;
-  &:hover {
-    background: linear-gradient(135deg, #fff0f3, #ffe4ec);
-  }
 }
 
 .close {
