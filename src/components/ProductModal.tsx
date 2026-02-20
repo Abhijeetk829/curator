@@ -1,9 +1,11 @@
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { isMobile } from "react-device-detect";
 import { Product } from "../types";
 import Badge from "./Badge";
+import { BuyOnAmazon, ShareOnWhatsapp } from "./buttons";
 import { CopyLink } from "./CopyLink";
 import styles from "./ProductModal.module.scss";
 import Rating from "./Rating";
-import { BuyOnAmazon, ShareOnWhatsapp } from "./buttons";
 
 interface ProductModalProps {
   product: Product | null;
@@ -41,8 +43,17 @@ export default function ProductModal({
 
   return (
     <div className={styles.overlay} onClick={handleClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.imageContainer}>
+      <div
+        className={`${styles.modal} ${isMobile ? styles.modalMobile : ""}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className={styles.closeBtn}>
+          <CloseRoundedIcon
+            onClick={handleClose}
+            className={styles.closeIcon}
+          />
+        </button>
+        <div className={`${styles.imageContainer}`}>
           <img src={product.image} className={styles.image} />
           <CopyLink productId={product.id} />
         </div>

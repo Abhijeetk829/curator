@@ -4,7 +4,12 @@ $logoWidth: 150px;
   width: 100%;
   height: auto;
 }
+
 .logo {
   width: $logoWidth;
   height: auto;
+}
+
+.compact {
+  width: auto;
 }
