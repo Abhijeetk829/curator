@@ -1,10 +1,18 @@
+import { isMobile } from "react-device-detect";
+import CompactLogo from "../img/compact_logo.svg";
 import Logo from "../img/logo.svg";
 import styles from "./BrandLogo.module.scss";
 
-export function BrandLogo() {
+interface BrandLogoProps {
+  className?: string;
+}
+
+export function BrandLogo({ className }: BrandLogoProps) {
   return (
-    <div className={styles.logoContainer}>
-      <img src={Logo} className={styles.logo} alt="logo"></img>
-    </div>
+    <img
+      src={isMobile ? CompactLogo : Logo}
+      className={`${styles.logo} ${isMobile ? styles.compact : ""} ${className || ""}`}
+      alt="logo"
+    ></img>
   );
 }

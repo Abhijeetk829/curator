@@ -1,22 +1,22 @@
 import { RefObject, useEffect, useState } from "react";
-import { tabs } from "../data";
-import { BrandLogo } from "./BrandLogo";
-import styles from "./Navbar.module.scss";
-import { SearchBar } from "./SearchBar";
+import { tabs } from "../../data";
+import { BrandLogo } from "../BrandLogo";
+import { SearchBar } from "../SearchBar";
+import styles from "./NavbarDesktop.module.scss";
 
-interface NavbarProps {
+interface NavbarDesktopProps {
   scrollContainerRef: RefObject<HTMLDivElement>;
   activeTab: string;
   setActiveTab: (v: string) => void;
   onSearch: (s: string) => void;
 }
 
-export function Navbar({
+export const NavbarDesktop = ({
   scrollContainerRef,
   activeTab,
   setActiveTab,
   onSearch,
-}: NavbarProps) {
+}: NavbarDesktopProps) => {
   const [compact, setCompact] = useState(false);
 
   useEffect(() => {
@@ -56,8 +56,8 @@ export function Navbar({
       </div>
     </div>
   );
-}
+};
 
-Navbar.displayName = "Navbar";
+NavbarDesktop.displayName = "NavbarDesktop";
 
-export default Navbar;
+export default NavbarDesktop;
