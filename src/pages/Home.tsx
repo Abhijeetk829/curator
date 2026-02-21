@@ -109,19 +109,25 @@ export function Home() {
         product={selectedProduct}
         close={() => setSelectedProduct(null)}
       />
-      <FilterTags
-        filteredData={
-          activeTab ? globalData.filter((p) => p.tab === activeTab) : globalData
-        }
-        activeTags={activeTags}
-        setActiveTags={(tag: string) =>
-          setActiveTags((prev) =>
-            prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
-          )
-        }
-        clearAllTags={() => setActiveTags([])}
-        scrollContainerRef={homeRef}
-      />
+      {isMobile && (
+        <FilterTags
+          filteredData={
+            activeTab
+              ? globalData.filter((p) => p.tab === activeTab)
+              : globalData
+          }
+          activeTags={activeTags}
+          setActiveTags={(tag: string) =>
+            setActiveTags((prev) =>
+              prev.includes(tag)
+                ? prev.filter((t) => t !== tag)
+                : [...prev, tag],
+            )
+          }
+          clearAllTags={() => setActiveTags([])}
+          scrollContainerRef={homeRef}
+        />
+      )}
     </div>
   );
 }

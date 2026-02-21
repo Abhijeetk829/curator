@@ -6,7 +6,6 @@ import { BuyOnAmazon, ShareOnWhatsapp } from "./buttons";
 import { CopyLink } from "./CopyLink";
 import styles from "./ProductModal.module.scss";
 import Rating from "./Rating";
-import { BuyOnAmazon, ShareOnWhatsapp } from "./buttons";
 
 interface ProductModalProps {
   product: Product | null;
