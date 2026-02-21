@@ -1,5 +1,6 @@
 import { tabs } from "../../data";
 import { BrandLogo } from "../BrandLogo";
+import { PWAInstallButton } from "../buttons";
 import styles from "./NavbarMobile.module.scss";
 
 interface NavbarMobileProps {
@@ -12,21 +13,24 @@ export const NavbarMobile = ({
   setActiveTab,
 }: NavbarMobileProps) => {
   return (
-    <div className={`${styles.navbar}`}>
-      <BrandLogo className={styles.logo} />
+    <>
+      <div className={`${styles.navbar}`}>
+        <BrandLogo className={styles.logo} />
 
-      <div className={styles.tabs}>
-        {tabs.tabs.map((t: any) => (
-          <span
-            key={t.id}
-            className={`${styles.tab} ${activeTab === t.id ? styles.activeTab : ""}`}
-            onClick={() => setActiveTab(t.id)}
-          >
-            {t.title}
-          </span>
-        ))}
+        <div className={styles.tabs}>
+          {tabs.tabs.map((t: any) => (
+            <span
+              key={t.id}
+              className={`${styles.tab} ${activeTab === t.id ? styles.activeTab : ""}`}
+              onClick={() => setActiveTab(t.id)}
+            >
+              {t.title}
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
+      <PWAInstallButton />
+    </>
   );
 };
 
