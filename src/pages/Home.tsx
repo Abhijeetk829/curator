@@ -109,7 +109,7 @@ export function Home() {
         product={selectedProduct}
         close={() => setSelectedProduct(null)}
       />
-      {isMobile && (
+      {!isMobile && (
         <FilterTags
           filteredData={
             activeTab
