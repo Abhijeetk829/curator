@@ -36,3 +36,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
     </>
   );
 }
+
+SearchBar.displayName = "SearchBar";
+
+export default SearchBar;

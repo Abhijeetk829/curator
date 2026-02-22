@@ -1,5 +1,7 @@
+export { default as Badge } from "./Badge";
 export * from "./buttons";
-export { default as FilterTags } from "./FilterTags";
+export * from "./finder";
+export { default as FilterTags } from "./finder/FilterTags";
 export * from "./navbar";
 export { default as Navbar } from "./navbar/NavbarDesktop";
 export { default as ProductCard } from "./ProductCard";

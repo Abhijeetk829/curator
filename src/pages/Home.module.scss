@@ -1,10 +1,38 @@
+@mixin googleFont {
+  font-family: "Google Sans", Arial, sans-serif;
+}
+
 .home {
   background: linear-gradient(180deg, #ffffff 0%, #fff6f8 50%, #fff0f4 100%);
-  height: 100vh;
+  // height: 100vh;
   overflow-y: scroll;
+
+  // hide scrollbar
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .gridMobile {
   gap: 2.5px !important;
   padding: 2.5px !important;
+}
+
+.gridNoData {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noData {
+  color: #888;
+  text-align: center;
+  @include googleFont();
+}
+
+.searchText {
+  color: #333 !important;
+  @include googleFont();
+  display: inline-block;
+  font-weight: 500;
 }

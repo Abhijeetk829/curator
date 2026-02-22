@@ -1,8 +1,8 @@
 import Close from "@mui/icons-material/Close";
 import FilterAlt from "@mui/icons-material/FilterAlt";
 import { RefObject, useEffect, useMemo, useState } from "react";
-import { Product } from "../types";
-import { getTags, groupTags } from "../utils";
+import { Product } from "../../types";
+import { getTags, groupTags } from "../../utils";
 import styles from "./FilterTags.module.scss";
 
 interface FilterTagProps {
