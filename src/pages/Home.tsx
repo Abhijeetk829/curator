@@ -18,6 +18,7 @@ const globalData = shuffleArray(data as Product[]);
 
 export function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
+  const navbarRef = useRef<HTMLDivElement>(null);
   // Extracting id from URL parameters
   const { value: filterValue, type: filterType } = useParams();
 
@@ -38,6 +39,7 @@ export function Home() {
         setActiveTags([]);
         setSelectedProduct(product);
       }
+      // handle tags and categories deep linking if needed in the future
     }
   }, [filterValue]);
 
@@ -53,7 +55,7 @@ export function Home() {
     if (searchText.trim()) {
       const s = searchText.toLowerCase();
       list = list.filter((p) =>
-        `${p.name} ${p.description} ${p.tags?.join(" ")}`
+        `${p.name} ${p.description} ${p.tags?.join(" ")} ${p.tab}`
           .toLowerCase()
           .includes(s),
       );
@@ -79,9 +81,14 @@ export function Home() {
   return (
     <div ref={homeRef} className={styles.home}>
       {isMobile ? (
-        <NavbarMobile activeTab={activeTab} setActiveTab={tabHandler} />
+        <NavbarMobile
+          ref={navbarRef}
+          activeTab={activeTab}
+          setActiveTab={tabHandler}
+        />
       ) : (
         <NavbarDesktop
+          ref={navbarRef}
           scrollContainerRef={homeRef}
           activeTab={activeTab}
           setActiveTab={tabHandler}
@@ -91,18 +98,31 @@ export function Home() {
 
       <Masonry
         breakpointCols={{ default: 5, 1100: 3, 700: 2 }}
-        className={`masonry-grid ${isMobile ? styles.gridMobile : ""}`}
+        className={`masonry-grid ${isMobile ? styles.gridMobile : ""} ${filteredProducts.length === 0 ? styles.gridNoData : ""}`}
         columnClassName="masonry-column"
+        style={{
+          minHeight: `${window.innerHeight - (navbarRef.current?.clientHeight || 0)}px`,
+        }}
       >
-        {filteredProducts.map(
-          (p: Product) =>
-            p.id && (
-              <ProductCard
-                key={p.id}
-                product={p}
-                onClick={() => setSelectedProduct(p)}
-              />
-            ),
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map(
+            (p: Product) =>
+              p.id && (
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  onClick={() => setSelectedProduct(p)}
+                />
+              ),
+          )
+        ) : (
+          <div className={styles.noData}>
+            No products found for your search
+            <div className={styles.searchText}>"{searchText}"</div>
+            <br /> <br />
+            Try adjusting your search or filter to find what you're looking
+            for!`
+          </div>
         )}
       </Masonry>
       <ProductModal

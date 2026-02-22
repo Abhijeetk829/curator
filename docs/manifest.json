@@ -1,10 +1,10 @@
 {
-  "name": "OnlyPresents",
+  "name": "OnlyPresents.store",
   "short_name": "OnlyPresents",
-  "description": "Discover trending gifts for him, her, couples and friends under every budget.",
+  "description": "Find the perfect gifts!",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#ff4d6d",
   "theme_color": "#ff4d6d",
   "orientation": "portrait",
   "scope": "/",
