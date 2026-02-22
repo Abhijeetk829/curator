@@ -22,6 +22,7 @@ export function FilterTags({
 }: FilterTagProps) {
   // generate tags + groups
   const allTags = useMemo(() => getTags(filteredData), [filteredData]);
+
   const grouped = useMemo(() => groupTags(allTags), [allTags]);
 
   const groupKeys = useMemo(
@@ -90,9 +91,11 @@ export function FilterTags({
     <>
       {/* Floating button */}
       <button
+        disabled={allTags.length === 0}
         className={`${styles.floatingBtn}
         ${open ? styles.floatingBtnOpen : ""}
-        ${activeCount > 0 && !open ? styles.hasFilters : ""}`}
+        ${activeCount > 0 && !open ? styles.hasFilters : ""}
+        ${allTags.length === 0 ? styles.noTags : ""}`}
         onClick={() => {
           setOpen((prev) => !prev);
           setCollapsed(false);

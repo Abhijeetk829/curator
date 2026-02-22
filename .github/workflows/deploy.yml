@@ -41,7 +41,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master'
     environment:
-      name: github-pages-prod
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:

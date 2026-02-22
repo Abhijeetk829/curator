@@ -9,7 +9,7 @@ import {
   ProductCard,
   ProductModal,
 } from "../components";
-import { data } from "../data";
+import { data, tabs } from "../data";
 import { FilterType, Product } from "../types";
 import { containsTag, shuffleArray } from "../utils";
 import styles from "./Home.module.scss";
@@ -23,7 +23,7 @@ export function Home() {
   const { value: filterValue, type: filterType } = useParams();
 
   // State to manage active tab, product data, and selected product for modal
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState(tabs.selectedTab || "");
   const [activeTags, setActiveTags] = useState([] as string[]);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [filteredProducts, setFilteredProducts] =
