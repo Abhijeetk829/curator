@@ -7,6 +7,7 @@
   "background_color": "#ff4d6d",
   "theme_color": "#ff4d6d",
   "orientation": "portrait",
+  "installable": true,
   "scope": "/",
   "icons": [
     {
