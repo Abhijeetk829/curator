@@ -1,0 +1,9 @@
+node_modules
+build
+.DS_Store
+*.local
+.env
+.env.local
+generateIdForData.js
+dist
+utils/

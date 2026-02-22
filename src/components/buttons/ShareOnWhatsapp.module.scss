@@ -1,0 +1,15 @@
+@mixin googleFont {
+  font-family: "Google Sans", sans-serif;
+}
+
+@mixin flexDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 6px;
+}
+
+.button {
+  @include googleFont();
+  @include flexDisplay();
+}

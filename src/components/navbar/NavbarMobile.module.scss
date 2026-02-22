@@ -1,0 +1,109 @@
+@mixin googleFont {
+  font-family: "Google Sans", sans-serif;
+}
+
+@mixin flexDisplay {
+  display: flex;
+  align-items: left;
+}
+
+@mixin scroll {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  align-items: center;
+  gap: 10px;
+}
+
+@mixin scrollElement {
+  flex-shrink: 0;
+  width: fit-content;
+}
+
+@mixin hideScrollbar {
+  /* For Firefox */
+  scrollbar-width: none;
+
+  /* For Internet Explorer and Legacy Edge */
+  -ms-overflow-style: none;
+
+  /* For Chrome, Safari, and newer Edge */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #ffe5ec;
+  @include googleFont();
+  @include flexDisplay();
+}
+
+/* logo left */
+.logo {
+  padding: 0px 10px;
+  width: 32px;
+  height: 40px;
+}
+
+.tabs {
+  gap: 5px;
+  height: 100%;
+  opacity: 0.9;
+  padding-right: 10px;
+  @include flexDisplay();
+  @include scroll();
+  @include hideScrollbar();
+}
+
+/* NAV TEXT STYLE */
+.tab {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #777;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  position: relative;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+  padding: 5px 10px;
+  @include googleFont();
+  @include scrollElement();
+}
+
+/* hover */
+.tab:hover {
+  color: #ff4d6d;
+  transform: translateY(-1px);
+}
+
+/* ACTIVE */
+.activeTab {
+  color: #ff4d6d;
+  font-weight: 600;
+}
+
+/* underline indicator */
+.activeTab::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff4d6d, #ff8fa3);
+  border-radius: 2px;
+}
+
+.tabs,
+.logo,
+.tab,
+.activeTab {
+  transition: all 0.25s ease;
+}

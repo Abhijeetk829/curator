@@ -1,0 +1,29 @@
+{
+  "name": "OnlyPresents.store",
+  "short_name": "OnlyPresents",
+  "description": "Find the perfect gifts!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ff4d6d",
+  "theme_color": "#ff4d6d",
+  "orientation": "portrait",
+  "installable": true,
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
