@@ -1,8 +1,8 @@
-name: Deploy Production
+name: Deploy Development
 
 on:
   push:
-    branches: ["main"]
+    branches: ["development"]
 
 permissions:
   contents: read
