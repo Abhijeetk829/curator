@@ -12,6 +12,8 @@ interface RatingProps {
 function Rating({ rating, userReviews }: RatingProps) {
   if (rating === undefined) return null;
 
+  if (userReviews === 0) return null;
+
   return (
     <div className={styles.rating}>
       {/* numeric rating */}

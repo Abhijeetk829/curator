@@ -6,4 +6,3 @@ build
 .env.local
 generateIdForData.js
 dist
-utils/

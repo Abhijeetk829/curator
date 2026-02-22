@@ -1,9 +1,14 @@
 {
   "defaultTab": "valentine",
+  "selectedTab": "",
   "tabs": [
     {
       "id": "",
       "title": "All"
+    },
+    {
+      "id": "holi",
+      "title": "holi"
     },
     {
       "id": "valentine",
