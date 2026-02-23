@@ -2,6 +2,16 @@ import { asString, generateCsv, mkConfig } from "export-to-csv";
 import { readFileSync, writeFile } from "fs";
 import { Buffer } from "node:buffer";
 
+const boardNames = {
+  holi: "Holi Gift Ideas",
+  valentine: "Valentine Day Gift Ideas",
+  birthday: "Birthday Gift Ideas",
+  girlfriend: "Gifts for Girlfriends",
+  boyfriend: "Gifts for Boyfriends",
+  under499: "Amazon Finds Under 499",
+  couple: "Cute Couple Gifts Ideas",
+};
+
 const headers = [
   {
     key: "title",
@@ -48,11 +58,11 @@ const baseUrl = "https://onlypresents.store/product/";
 data = data.map((item) => ({
   title: item.name,
   mediaURL: item.image,
-  pinterestBoard: item.tab,
+  pinterestBoard: boardNames[item.tab],
   thumbnail: "",
   description: item.description,
   link: `${baseUrl}${item.id}`,
-  publishDate: publishDateTime,
+  publishDate: "",
   keywords: item.tags.join(", "),
 }));
 
