@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "fs";
 
-let data = JSON.parse(readFileSync("src/data/data_2.json", "utf-8"));
+const fileName = "data_3";
+let data = JSON.parse(readFileSync(`../src/data/${fileName}.json`, "utf-8"));
 
 const generateId = (length = 6) => {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -17,7 +18,7 @@ data = data.map((item) => ({
 }));
 
 writeFileSync(
-  "src/data/data_2_cleaned.json",
+  `../src/data/${fileName}_cleaned.json`,
   JSON.stringify(data, null, 2),
   "utf-8",
 );

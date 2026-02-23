@@ -37,8 +37,10 @@ const headers = [
   },
 ];
 
-const sourceFile = "../src/data/data_2.json";
-const fileName = sourceFile.split("/").slice(-1)[0].split(".")[0] + ".csv";
+const fileName = "data_3";
+const publishDateTime = "2026-02-24T11:00:00";
+const sourceFile = `../src/data/${fileName}.json`;
+const csvFileName = sourceFile.split("/").slice(-1)[0].split(".")[0] + ".csv";
 let data = JSON.parse(readFileSync(sourceFile, "utf-8"));
 const csvConfig = mkConfig({ useKeysAsHeaders: false, columnHeaders: headers });
 const baseUrl = "https://onlypresents.store/product/";
@@ -47,10 +49,10 @@ data = data.map((item) => ({
   title: item.name,
   mediaURL: item.image,
   pinterestBoard: item.tab,
-  thumbnail: 0,
+  thumbnail: "",
   description: item.description,
   link: `${baseUrl}${item.id}`,
-  publishDate: 0,
+  publishDate: publishDateTime,
   keywords: item.tags.join(", "),
 }));
 
@@ -58,7 +60,7 @@ data = data.map((item) => ({
 const csv = generateCsv(csvConfig)(data);
 const csvBuffer = new Uint8Array(Buffer.from(asString(csv)));
 
-writeFile(fileName, csvBuffer, (err) => {
+writeFile(csvFileName, csvBuffer, (err) => {
   if (err) throw err;
-  console.log("file saved: ", fileName);
+  console.log("file saved: ", csvFileName);
 });
