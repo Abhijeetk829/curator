@@ -1,0 +1,124 @@
+{
+  "master_product_processing_rules": {
+    "data_usage_rules": {
+      "reference_usage": "Reference files are only for understanding structure or tone. Do not copy content from them.",
+      "modify_only_fields": ["name", "description", "tags"],
+      "preserve_all_fields": true,
+      "do_not_remove_fields": [
+        "id",
+        "tab",
+        "price",
+        "image",
+        "amazonLink",
+        "pinterestLink",
+        "rating",
+        "badge",
+        "userReviews",
+        "any_other_existing_field"
+      ]
+    },
+    "title_rules": {
+      "max_length": 50,
+      "requirements": [
+        "Must be meaningful and readable",
+        "Must not look trimmed or broken",
+        "Remove junk characters and random trailing text",
+        "Keep brand names intact",
+        "Should reflect what the product actually is"
+      ],
+      "generation_logic": [
+        "Use existing title if clean and meaningful",
+        "If title is messy or unclear recreate from description",
+        "Use product description as primary source for clarity",
+        "Ensure title makes sense independently"
+      ]
+    },
+    "description_rules": {
+      "core_instruction": "Rewrite description using only the product’s existing description as source input",
+      "no_template_rule": "Do not use repeated templates or scripted lines across products",
+      "no_filler_rule": "Do not add filler text just to increase length",
+      "length_rule": "Length can be short if original content is limited. Do not artificially expand.",
+      "writing_style": [
+        "Simple human readable English",
+        "Natural tone",
+        "Product specific wording",
+        "Clear and meaningful"
+      ],
+      "punctuation_rules": [
+        "Use proper punctuation like periods and commas",
+        "Sentences must read naturally",
+        "Avoid broken or abrupt endings"
+      ],
+      "character_cleaning": [
+        "Remove pipes and junk symbols",
+        "Remove random trailing characters",
+        "Keep only alphanumeric and basic punctuation",
+        "Small brackets allowed but must be properly closed"
+      ],
+      "spacing_rules": [
+        "No double spaces",
+        "No unwanted spaces between words",
+        "Normalize spacing across full description",
+        "Trim leading and trailing spaces"
+      ]
+    },
+    "tag_rules": {
+      "base_tags": [
+        "for him",
+        "home decor",
+        "romantic",
+        "under 500",
+        "cute",
+        "soft toy",
+        "snacks",
+        "for her",
+        "gift set",
+        "premium",
+        "self care",
+        "mug",
+        "jewelry",
+        "accessories",
+        "couple",
+        "perfume"
+      ],
+      "tag_generation_logic": [
+        "Generate tags based on product type",
+        "Use description and title as context",
+        "Add price based tags like under 500 or premium",
+        "Add category tags like mug, decor, perfume, etc",
+        "Add both 'for him' and 'for her' if gender not specified",
+        "Add romantic or couple if context suggests",
+        "Add gift set if product is combo or gift item"
+      ],
+      "allowed_additional_tags": [
+        "holi",
+        "valentine",
+        "birthday",
+        "festival",
+        "decor"
+      ]
+    },
+    "cleaning_rules": [
+      "No generic repeated lines across descriptions",
+      "No template based expansion",
+      "Each description must be product specific",
+      "All output must be marketplace ready",
+      "Readable and natural for real users"
+    ],
+    "output_rules": {
+      "format": "Return clean structured JSON",
+      "when_requested_array_only": "Return only product array with no extra commentary",
+      "preserve_original_data": true,
+      "replace_fields": ["name", "description"],
+      "add_field": ["tags"]
+    },
+    "quality_standard": [
+      "Human sounding descriptions",
+      "Consistent formatting",
+      "Clean spacing",
+      "No junk characters",
+      "Readable and professional",
+      "Production ready catalog data"
+    ]
+  }
+}
