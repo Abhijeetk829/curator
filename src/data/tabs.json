@@ -8,11 +8,11 @@
     },
     {
       "id": "holi",
-      "title": "Holi"
+      "title": "Holi Specials"
     },
     {
       "id": "valentine",
-      "title": "Valentine"
+      "title": "Valentine's Specials"
     },
     {
       "id": "girlfriend",
@@ -22,13 +22,14 @@
       "id": "boyfriend",
       "title": "For Him"
     },
-    {
-      "id": "under499",
-      "title": "Under \u20b9499"
-    },
+
     {
       "id": "couple",
-      "title": "Couple"
+      "title": "For Couple"
+    },
+    {
+      "id": "under499",
+      "title": "Budget Picks"
     }
   ]
 }
