@@ -20,7 +20,7 @@ export const NavbarDesktop = forwardRef<HTMLDivElement, NavbarDesktopProps>(
     useEffect(() => {
       const handleScroll = () => {
         const scrollY = window.scrollY || document.documentElement.scrollTop;
-        setCompact(scrollY > 60);
+        setCompact(scrollY > 300);
       };
 
       window.addEventListener("scroll", handleScroll, { passive: true });

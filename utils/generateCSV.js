@@ -61,7 +61,7 @@ const baseUrl = "https://onlypresents.store/product/";
 data = data.map((item) => ({
   title: item.name,
   mediaURL: item.image,
-  pinterestBoard: boardNames[item.tab],
+  pinterestBoard: boardNames[item.pinterestLink],
   thumbnail: "",
   description: item.description,
   link: `${baseUrl}${item.id}`,
