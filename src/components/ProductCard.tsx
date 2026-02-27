@@ -19,7 +19,7 @@ export default function ProductCard({
       <div className={styles.info}>
         <div className={styles.name}>{product.name}</div>
         <Badge badge={product.badge || undefined} />
-        {/* <div className={styles.price}>{`\u20b9 ${product.price}`}</div> */}
+        <div className={styles.price}>{`\u20b9 ${product.price}`}</div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { BadgeType } from "./BadgeType";
 
 export interface Product {
   id: string;
-  tab: string;
+  tabs: string[];
   name: string;
   description: string;
   price: number;

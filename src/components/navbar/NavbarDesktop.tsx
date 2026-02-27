@@ -1,17 +1,10 @@
-import {
-  ForwardedRef,
-  forwardRef,
-  RefObject,
-  useEffect,
-  useState,
-} from "react";
+import { ForwardedRef, forwardRef, useEffect, useState } from "react";
 import { tabs } from "../../data";
 import { BrandLogo } from "../BrandLogo";
 import { SearchBar } from "../finder";
 import styles from "./NavbarDesktop.module.scss";
 
 interface NavbarDesktopProps {
-  scrollContainerRef: RefObject<HTMLDivElement>;
   activeTab: string;
   setActiveTab: (v: string) => void;
   onSearch: (s: string) => void;
@@ -19,27 +12,21 @@ interface NavbarDesktopProps {
 
 export const NavbarDesktop = forwardRef<HTMLDivElement, NavbarDesktopProps>(
   (
-    {
-      scrollContainerRef,
-      activeTab,
-      setActiveTab,
-      onSearch,
-    }: NavbarDesktopProps,
+    { activeTab, setActiveTab, onSearch }: NavbarDesktopProps,
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
     const [compact, setCompact] = useState(false);
 
     useEffect(() => {
-      const el = scrollContainerRef?.current;
-      if (!el) return;
-
       const handleScroll = () => {
-        setCompact(el.scrollTop > 60);
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        setCompact(scrollY > 300);
       };
 
-      el.addEventListener("scroll", handleScroll);
-      return () => el.removeEventListener("scroll", handleScroll);
-    }, [scrollContainerRef]);
+      window.addEventListener("scroll", handleScroll, { passive: true });
+
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
       <div
