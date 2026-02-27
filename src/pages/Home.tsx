@@ -11,18 +11,18 @@ import {
 } from "../components";
 import { data, tabs } from "../data";
 import { FilterType, Product } from "../types";
-import { containsTag, shuffleArray } from "../utils";
+import { containsTag, isDev, shuffleArray } from "../utils";
 import styles from "./Home.module.scss";
 
-const globalData = shuffleArray(data as Product[]);
+const globalData = isDev()
+  ? (data as Product[])
+  : shuffleArray(data as Product[]);
 
 export function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
   const navbarRef = useRef<HTMLDivElement>(null);
-  // Extracting id from URL parameters
   const { value: filterValue, type: filterType } = useParams();
 
-  // State to manage active tab, product data, and selected product for modal
   const [activeTab, setActiveTab] = useState(tabs.selectedTab || "");
   const [activeTags, setActiveTags] = useState([] as string[]);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
@@ -30,32 +30,37 @@ export function Home() {
     useState<Product[]>(globalData);
   const [searchText, setSearchText] = useState("");
 
-  // Effect to handle URL parameters and set the active tab and selected product accordingly
+  /* -------------------------
+     Deep linking for product
+  --------------------------*/
   useEffect(() => {
     if (filterType === FilterType.Product && filterValue) {
       const product = globalData.find((p: any) => p.id === filterValue);
       if (product) {
-        setActiveTab(product.tab);
+        // Use first tab as default for deep link
+        setActiveTab(product.tabs?.[0] || "");
         setActiveTags([]);
         setSelectedProduct(product);
       }
-      // handle tags and categories deep linking if needed in the future
     }
   }, [filterValue]);
 
+  /* -------------------------
+     Filtering Logic
+  --------------------------*/
   useEffect(() => {
     let list = [...globalData];
 
     // TAB filter
     if (activeTab) {
-      list = list.filter((p) => p.tab === activeTab);
+      list = list.filter((p) => p.tabs?.includes(activeTab));
     }
 
     // SEARCH filter
     if (searchText.trim()) {
       const s = searchText.toLowerCase();
       list = list.filter((p) =>
-        `${p.name} ${p.description} ${p.tags?.join(" ")} ${p.tab}`
+        `${p.name} ${p.description} ${p.tags?.join(" ")} ${p.tabs?.join(" ")}`
           .toLowerCase()
           .includes(s),
       );
@@ -79,7 +84,7 @@ export function Home() {
   };
 
   return (
-    <div ref={homeRef} className={styles.home}>
+    <div className={styles.home} ref={homeRef}>
       {isMobile ? (
         <NavbarMobile
           ref={navbarRef}
@@ -89,7 +94,6 @@ export function Home() {
       ) : (
         <NavbarDesktop
           ref={navbarRef}
-          scrollContainerRef={homeRef}
           activeTab={activeTab}
           setActiveTab={tabHandler}
           onSearch={setSearchText}
@@ -98,10 +102,14 @@ export function Home() {
 
       <Masonry
         breakpointCols={{ default: 5, 1100: 3, 700: 2 }}
-        className={`masonry-grid ${isMobile ? styles.gridMobile : ""} ${filteredProducts.length === 0 ? styles.gridNoData : ""}`}
+        className={`masonry-grid ${
+          isMobile ? styles.gridMobile : ""
+        } ${filteredProducts.length === 0 ? styles.gridNoData : ""}`}
         columnClassName="masonry-column"
         style={{
-          minHeight: `${window.innerHeight - (navbarRef.current?.clientHeight || 0)}px`,
+          minHeight: `${
+            window.innerHeight - (navbarRef.current?.clientHeight || 0)
+          }px`,
         }}
       >
         {filteredProducts.length > 0 ? (
@@ -119,21 +127,23 @@ export function Home() {
           <div className={styles.noData}>
             No products found for your search
             <div className={styles.searchText}>"{searchText}"</div>
-            <br /> <br />
-            Try adjusting your search or filter to find what you're looking
-            for!`
+            <br />
+            <br />
+            Try adjusting your search or filter to find what you're looking for!
           </div>
         )}
       </Masonry>
+
       <ProductModal
         product={selectedProduct}
         close={() => setSelectedProduct(null)}
       />
+
       {!isMobile && (
         <FilterTags
           filteredData={
             activeTab
-              ? globalData.filter((p) => p.tab === activeTab)
+              ? globalData.filter((p) => p.tabs?.includes(activeTab))
               : globalData
           }
           activeTags={activeTags}
@@ -153,5 +163,4 @@ export function Home() {
 }
 
 Home.displayName = "Home";
-
 export default Home;
