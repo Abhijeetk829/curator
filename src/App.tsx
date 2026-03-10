@@ -7,6 +7,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:type/:value" element={<Home />} />
+        <Route path="/about" element={<Home />} />
+        <Route path="/privacy" element={<Home />} />
+        <Route path="/terms" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

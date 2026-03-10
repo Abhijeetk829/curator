@@ -4,6 +4,7 @@ import Masonry from "react-masonry-css";
 import { useParams } from "react-router-dom";
 import {
   FilterTags,
+  Footer,
   NavbarDesktop,
   NavbarMobile,
   ProductCard,
@@ -158,6 +159,8 @@ export function Home() {
           scrollContainerRef={homeRef}
         />
       )}
+
+      <Footer />
     </div>
   );
 }
