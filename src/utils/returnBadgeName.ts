@@ -8,6 +8,8 @@ export const returnBadgeName = (badgeType: string): string => {
       return "Limited Time Deal";
     case "amazonchoice":
       return "Amazon's Choice";
+    case "sponsored":
+      return "Sponsored";
     default:
       return "";
   }

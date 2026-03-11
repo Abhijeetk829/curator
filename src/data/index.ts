@@ -1,5 +1,5 @@
 import { Product } from "../types";
-import { isDev } from "../utils";
+import { IS_DEV } from "../utils";
 
 const getProdData = (): Product[] => {
   const modules = import.meta.glob("./json/*.json", { eager: true });
@@ -26,7 +26,7 @@ const getDevData = (): Product[] => {
   return devDataMode === "latest" ? lastChunk : allChunks;
 };
 
-const combinedData = isDev() ? getDevData() : getProdData();
+const combinedData = IS_DEV ? getDevData() : getProdData();
 
 export { default as tabs } from "./tabs.json";
 export { combinedData as data };

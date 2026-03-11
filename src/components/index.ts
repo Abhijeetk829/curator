@@ -1,3 +1,4 @@
+export * from "./ads";
 export { default as Badge } from "./Badge";
 export * from "./buttons";
 export * from "./finder";

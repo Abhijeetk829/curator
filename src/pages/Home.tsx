@@ -3,8 +3,10 @@ import { isMobile } from "react-device-detect";
 import Masonry from "react-masonry-css";
 import { useParams } from "react-router-dom";
 import {
+  BannerAd,
   FilterTags,
   Footer,
+  GridAd,
   NavbarDesktop,
   NavbarMobile,
   ProductCard,
@@ -12,10 +14,18 @@ import {
 } from "../components";
 import { data, tabs } from "../data";
 import { FilterType, Product } from "../types";
-import { containsTag, isDev, shuffleArray } from "../utils";
+import {
+  containsTag,
+  DESKTOP_AD_FREQUENCY,
+  IS_DEV,
+  MOBILE_AD_FREQUENCY,
+  shuffleArray,
+} from "../utils";
+import { AD_NAME } from "../utils/env";
+import { injectAds } from "../utils/InjectAds";
 import styles from "./Home.module.scss";
 
-const globalData = isDev()
+const shuffledData = IS_DEV
   ? (data as Product[])
   : shuffleArray(data as Product[]);
 
@@ -23,6 +33,11 @@ export function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
   const navbarRef = useRef<HTMLDivElement>(null);
   const { value: filterValue, type: filterType } = useParams();
+
+  const adFrequency: number = isMobile
+    ? MOBILE_AD_FREQUENCY
+    : DESKTOP_AD_FREQUENCY;
+  const globalData = injectAds(shuffledData, adFrequency);
 
   const [activeTab, setActiveTab] = useState(tabs.selectedTab || "");
   const [activeTags, setActiveTags] = useState([] as string[]);
@@ -100,6 +115,7 @@ export function Home() {
           onSearch={setSearchText}
         />
       )}
+      <BannerAd />
 
       <Masonry
         breakpointCols={{ default: 5, 1100: 3, 700: 2 }}
@@ -114,15 +130,16 @@ export function Home() {
         }}
       >
         {filteredProducts.length > 0 ? (
-          filteredProducts.map(
-            (p: Product) =>
-              p.id && (
-                <ProductCard
-                  key={p.id}
-                  product={p}
-                  onClick={() => setSelectedProduct(p)}
-                />
-              ),
+          filteredProducts.map((p: Product) =>
+            p.name === AD_NAME ? (
+              <GridAd key={p.id} product={p} />
+            ) : (
+              <ProductCard
+                key={p.id}
+                product={p}
+                onClick={() => setSelectedProduct(p)}
+              />
+            ),
           )
         ) : (
           <div className={styles.noData}>
@@ -160,6 +177,7 @@ export function Home() {
         />
       )}
 
+      <BannerAd />
       <Footer />
     </div>
   );
