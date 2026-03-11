@@ -25,3 +25,5 @@ export function injectAds(products: Product[], frequency: number): Product[] {
 
   return result;
 }
+
+export default injectAds;
