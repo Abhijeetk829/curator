@@ -17,12 +17,12 @@ import { FilterType, Product } from "../types";
 import {
   containsTag,
   DESKTOP_AD_FREQUENCY,
+  injectAds,
   IS_DEV,
   MOBILE_AD_FREQUENCY,
   shuffleArray,
 } from "../utils";
 import { AD_NAME } from "../utils/env";
-import { injectAds } from "../utils/InjectAds";
 import styles from "./Home.module.scss";
 
 const shuffledData = IS_DEV
