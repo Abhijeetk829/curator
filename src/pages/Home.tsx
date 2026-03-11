@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import Masonry from "react-masonry-css";
 import { useParams } from "react-router-dom";
@@ -37,7 +37,11 @@ export function Home() {
   const adFrequency: number = isMobile
     ? MOBILE_AD_FREQUENCY
     : DESKTOP_AD_FREQUENCY;
-  const globalData = injectAds(shuffledData, adFrequency);
+
+  const globalData = useMemo(() => {
+    injectAds(shuffledData, adFrequency);
+    return shuffledData;
+  }, [shuffledData, adFrequency]);
 
   const [activeTab, setActiveTab] = useState(tabs.selectedTab || "");
   const [activeTags, setActiveTags] = useState([] as string[]);
