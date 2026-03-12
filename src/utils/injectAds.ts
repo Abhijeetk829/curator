@@ -1,25 +1,7 @@
 import { Product } from "../types";
-import {
-  AD_NAME,
-  BANNER_AD_SLOT,
-  CAPUB,
-  DESKTOP_AD_FREQUENCY,
-  GRID_AD_SLOT,
-  IS_DEV,
-  MOBILE_AD_FREQUENCY,
-} from "./env";
+import { AD_NAME } from "./env";
 
 export function injectAds(products: Product[], frequency: number): Product[] {
-  console.log("injecting ads", frequency);
-  console.log(
-    IS_DEV,
-    CAPUB,
-    MOBILE_AD_FREQUENCY,
-    DESKTOP_AD_FREQUENCY,
-    BANNER_AD_SLOT,
-    GRID_AD_SLOT,
-    AD_NAME,
-  );
   const result: Product[] = [];
 
   let adIndex = 0;
