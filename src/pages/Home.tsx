@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import Masonry from "react-masonry-css";
 import { useParams } from "react-router-dom";
@@ -33,9 +33,7 @@ const adFrequency: number = isMobile
   ? MOBILE_AD_FREQUENCY
   : DESKTOP_AD_FREQUENCY;
 
-const globalData = useMemo(() => {
-  return injectAds(shuffledData, adFrequency);
-}, [shuffledData, adFrequency]);
+const globalData = injectAds(shuffledData, adFrequency);
 
 export function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
