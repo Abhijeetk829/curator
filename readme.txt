@@ -2,7 +2,7 @@ To add remote branch for fetch
 -- git remote add "given_name" "git_url_of_branch"
 
 To check branches in remote repo
--- git remove -v
+-- git remote -v
 
 To fetch latest changes from remote repo
 -- git fetch "given_name"
