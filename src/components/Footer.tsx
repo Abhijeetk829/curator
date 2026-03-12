@@ -4,6 +4,7 @@ export function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerLinks}>
+        <a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdRefresh } from "./components";
-import { Home } from "./pages";
+import { About, Contact, Home, Privacy, Terms } from "./pages";
 
 export default function App() {
   return (
@@ -9,10 +9,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:type/:value" element={<Home />} />
-        <Route path="/about" element={<Home />} />
-        <Route path="/privacy" element={<Home />} />
-        <Route path="/terms" element={<Home />} />
-        <Route path="/contact" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );
