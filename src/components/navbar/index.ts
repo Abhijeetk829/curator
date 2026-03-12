@@ -1,2 +1,3 @@
 export { NavbarDesktop } from "./NavbarDesktop";
 export { NavbarMobile } from "./NavbarMobile";
+export { NavbarSimple } from "./NavbarSimple";
