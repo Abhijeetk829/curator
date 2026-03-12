@@ -42,6 +42,8 @@ export function Home() {
     return injectAds(shuffledData, adFrequency);
   }, [shuffledData, adFrequency]);
 
+  console.log(globalData);
+
   const [activeTab, setActiveTab] = useState(tabs.selectedTab || "");
   const [activeTags, setActiveTags] = useState([] as string[]);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
