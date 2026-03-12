@@ -39,8 +39,7 @@ export function Home() {
     : DESKTOP_AD_FREQUENCY;
 
   const globalData = useMemo(() => {
-    injectAds(shuffledData, adFrequency);
-    return shuffledData;
+    return injectAds(shuffledData, adFrequency);
   }, [shuffledData, adFrequency]);
 
   const [activeTab, setActiveTab] = useState(tabs.selectedTab || "");
