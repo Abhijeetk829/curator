@@ -4,22 +4,26 @@ import { AD_NAME } from "./env";
 export function injectAds(products: Product[], frequency: number): Product[] {
   const result: Product[] = [];
 
-  let counter = 0;
+  let adIndex = 0;
 
-  for (const product of products) {
+  // first ad position
+  let nextAdIndex =
+    frequency + Math.floor(Math.random() * Math.floor(frequency / 2));
+
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i];
     result.push(product);
 
-    counter++;
-
-    if (counter >= frequency + Math.floor(Math.random() * 3)) {
-      let ad = {
+    if (i >= nextAdIndex) {
+      result.push({
         name: AD_NAME,
-        id: crypto.randomUUID(),
+        id: `ad-${adIndex++}`,
         badge: "Sponsored",
-      } as Product;
-      result.push(ad);
+      } as Product);
 
-      counter = 0;
+      // schedule next ad
+      nextAdIndex =
+        i + frequency + Math.floor(Math.random() * Math.floor(frequency / 2));
     }
   }
 

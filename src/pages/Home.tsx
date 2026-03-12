@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import Masonry from "react-masonry-css";
 import { useParams } from "react-router-dom";
@@ -25,29 +25,57 @@ import {
 import { AD_NAME } from "../utils/env";
 import styles from "./Home.module.scss";
 
-const shuffledData = IS_DEV
-  ? (data as Product[])
-  : shuffleArray(data as Product[]);
-
-const adFrequency: number = isMobile
-  ? MOBILE_AD_FREQUENCY
-  : DESKTOP_AD_FREQUENCY;
-
-const globalData = injectAds(shuffledData, adFrequency);
-
 export function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
   const navbarRef = useRef<HTMLDivElement>(null);
   const { value: filterValue, type: filterType } = useParams();
 
-  console.log(globalData);
+  // shuffle data once; stable during component lifetime
+  const shuffledData = useMemo(
+    () => (IS_DEV ? (data as Product[]) : shuffleArray(data as Product[])),
+    [],
+  );
+
+  // pick ad frequency based on device; include isMobile to satisfy lint
+  const adFrequency: number = useMemo(
+    () => (isMobile ? MOBILE_AD_FREQUENCY : DESKTOP_AD_FREQUENCY),
+    [isMobile],
+  );
+
+  // global list with ads injected – recompute only when inputs change
+  const globalData = useMemo(
+    () => injectAds(shuffledData, adFrequency),
+    [shuffledData, adFrequency],
+  );
 
   const [activeTab, setActiveTab] = useState(tabs.selectedTab || "");
-  const [activeTags, setActiveTags] = useState([] as string[]);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const [filteredProducts, setFilteredProducts] =
-    useState<Product[]>(globalData);
+  const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [searchText, setSearchText] = useState("");
+
+  // derived filter result avoids extra render from effect
+  const filteredProducts = useMemo(() => {
+    let list = [...globalData];
+
+    if (activeTab) {
+      list = list.filter((p) => p.tabs?.includes(activeTab));
+    }
+
+    if (searchText.trim()) {
+      const s = searchText.toLowerCase();
+      list = list.filter((p) =>
+        `${p.name} ${p.description} ${p.tags?.join(" ")} ${p.tabs?.join(" ")}`
+          .toLowerCase()
+          .includes(s),
+      );
+    }
+
+    if (activeTags.length > 0) {
+      list = list.filter((p) => containsTag(activeTags, p));
+    }
+
+    return list;
+  }, [activeTab, activeTags, searchText, globalData]);
 
   /* -------------------------
      Deep linking for product
@@ -62,45 +90,36 @@ export function Home() {
         setSelectedProduct(product);
       }
     }
-  }, [filterValue]);
+  }, [filterType, filterValue, globalData]);
 
-  /* -------------------------
-     Filtering Logic
-  --------------------------*/
-  useEffect(() => {
-    let list = [...globalData];
+  const tabHandler = useCallback(
+    (tab: string) => {
+      if (activeTab === tab) {
+        setActiveTab("");
+      } else {
+        setActiveTab(tab);
+        setActiveTags([]);
+      }
+    },
+    [activeTab],
+  );
 
-    // TAB filter
-    if (activeTab) {
-      list = list.filter((p) => p.tabs?.includes(activeTab));
-    }
+  const toggleTag = useCallback((tag: string) => {
+    setActiveTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+    );
+  }, []);
 
-    // SEARCH filter
-    if (searchText.trim()) {
-      const s = searchText.toLowerCase();
-      list = list.filter((p) =>
-        `${p.name} ${p.description} ${p.tags?.join(" ")} ${p.tabs?.join(" ")}`
-          .toLowerCase()
-          .includes(s),
-      );
-    }
+  const clearAllTags = useCallback(() => setActiveTags([]), []);
 
-    // TAG filter
-    if (activeTags.length > 0) {
-      list = list.filter((p) => containsTag(activeTags, p));
-    }
-
-    setFilteredProducts(list);
-  }, [activeTab, activeTags, searchText]);
-
-  const tabHandler = (tab: string) => {
-    if (activeTab === tab) {
-      setActiveTab("");
-    } else {
-      setActiveTab(tab);
-      setActiveTags([]);
-    }
-  };
+  // data used by the tag pane (no search applied)
+  const dataForTags = useMemo(
+    () =>
+      activeTab
+        ? globalData.filter((p) => p.tabs?.includes(activeTab))
+        : globalData,
+    [activeTab, globalData],
+  );
 
   return (
     <div className={styles.home} ref={homeRef}>
@@ -162,20 +181,10 @@ export function Home() {
 
       {!isMobile && (
         <FilterTags
-          filteredData={
-            activeTab
-              ? globalData.filter((p) => p.tabs?.includes(activeTab))
-              : globalData
-          }
+          filteredData={dataForTags}
           activeTags={activeTags}
-          setActiveTags={(tag: string) =>
-            setActiveTags((prev) =>
-              prev.includes(tag)
-                ? prev.filter((t) => t !== tag)
-                : [...prev, tag],
-            )
-          }
-          clearAllTags={() => setActiveTags([])}
+          setActiveTags={toggleTag}
+          clearAllTags={clearAllTags}
           scrollContainerRef={homeRef}
         />
       )}
