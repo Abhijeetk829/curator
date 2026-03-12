@@ -5,19 +5,18 @@ export function injectAds(products: Product[], frequency: number): Product[] {
   const result: Product[] = [];
 
   let counter = 0;
+  let adIndex = 0;
 
   for (const product of products) {
     result.push(product);
-
     counter++;
 
-    if (counter >= frequency + Math.floor(Math.random() * 3)) {
-      let ad = {
+    if (counter >= frequency) {
+      result.push({
         name: AD_NAME,
-        id: crypto.randomUUID(),
+        id: `ad-${adIndex++}`, // stable id
         badge: "Sponsored",
-      } as Product;
-      result.push(ad);
+      } as Product);
 
       counter = 0;
     }
