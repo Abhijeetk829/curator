@@ -1,0 +1,43 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px 80px;
+
+  font-family: "Google Sans", Arial, sans-serif;
+  line-height: 1.65;
+  color: #333;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+.section h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.section p {
+  margin-bottom: 12px;
+}
+
+.section ul {
+  padding-left: 20px;
+}
+
+.section li {
+  margin-bottom: 8px;
+}
+
+.email {
+  color: #ff4d6d;
+  font-weight: 500;
+}

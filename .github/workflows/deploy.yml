@@ -16,6 +16,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: github-pages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
@@ -31,6 +32,13 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_CAPUB: ${{ vars.VITE_CAPUB }}
+          VITE_AD_FREQUENCY_MOBILE: ${{ vars.VITE_AD_FREQUENCY_MOBILE }}
+          VITE_AD_FREQUENCY_DESKTOP: ${{ vars.VITE_AD_FREQUENCY_DESKTOP }}
+          VITE_BANNER_AD_SLOT: ${{ vars.VITE_BANNER_AD_SLOT }}
+          VITE_GRID_AD_SLOT: ${{ vars.VITE_GRID_AD_SLOT }}
+          VITE_AD_ID: ${{ vars.VITE_AD_ID }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
