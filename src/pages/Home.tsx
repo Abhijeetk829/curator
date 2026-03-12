@@ -29,18 +29,18 @@ const shuffledData = IS_DEV
   ? (data as Product[])
   : shuffleArray(data as Product[]);
 
+const adFrequency: number = isMobile
+  ? MOBILE_AD_FREQUENCY
+  : DESKTOP_AD_FREQUENCY;
+
+const globalData = useMemo(() => {
+  return injectAds(shuffledData, adFrequency);
+}, [shuffledData, adFrequency]);
+
 export function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
   const navbarRef = useRef<HTMLDivElement>(null);
   const { value: filterValue, type: filterType } = useParams();
-
-  const adFrequency: number = isMobile
-    ? MOBILE_AD_FREQUENCY
-    : DESKTOP_AD_FREQUENCY;
-
-  const globalData = useMemo(() => {
-    return injectAds(shuffledData, adFrequency);
-  }, [shuffledData, adFrequency]);
 
   console.log(globalData);
 
