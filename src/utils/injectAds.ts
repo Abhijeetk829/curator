@@ -2,6 +2,7 @@ import { Product } from "../types";
 import { AD_NAME } from "./env";
 
 export function injectAds(products: Product[], frequency: number): Product[] {
+  console.log("injecting ads");
   const result: Product[] = [];
 
   let adIndex = 0;

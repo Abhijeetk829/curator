@@ -140,7 +140,7 @@ export function Home() {
       <BannerAd />
 
       <Masonry
-        breakpointCols={{ default: 5, 1100: 3, 700: 2 }}
+        breakpointCols={{ default: 5, 1400: 4, 1100: 3, 700: 2 }}
         className={`masonry-grid ${
           isMobile ? styles.gridMobile : ""
         } ${filteredProducts.length === 0 ? styles.gridNoData : ""}`}
